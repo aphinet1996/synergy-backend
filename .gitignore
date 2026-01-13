@@ -3,3 +3,4 @@
 src/.DS_Store
 uploads/.DS_Store
 .env.development.local
+.DS_Store
