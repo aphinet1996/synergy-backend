@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { DB_HOST, DB_PORT, DB_DATABASE } from '@config/index';
-import { logger } from '@utils/logger'
+import { MONGODB_URI } from '@config/index';
+import { logger } from '@utils/logger';
 
 const mongooseOptions: mongoose.ConnectOptions = {
     serverSelectionTimeoutMS: 5000,
@@ -9,15 +9,7 @@ const mongooseOptions: mongoose.ConnectOptions = {
 
 export const connectDB = async (): Promise<typeof mongoose> => {
     try {
-        const mongoUri = `mongodb://${DB_HOST}:${DB_PORT}/${DB_DATABASE}`;
-
-        if (!DB_HOST || !DB_PORT || !DB_DATABASE) {
-            const errorMsg = 'DB_HOST, DB_PORT, or DB_DATABASE not defined in environment variables';
-            logger?.error(errorMsg);
-            throw new Error(errorMsg);
-        }
-
-        if (!mongoUri) {
+        if (!MONGODB_URI) {
             throw new Error('MONGODB_URI is not defined in environment variables');
         }
 
@@ -26,8 +18,7 @@ export const connectDB = async (): Promise<typeof mongoose> => {
         }
 
         console.log('Connecting to MongoDB...');
-
-        const connection = await mongoose.connect(mongoUri, mongooseOptions);
+        const connection = await mongoose.connect(MONGODB_URI, mongooseOptions);
 
         mongoose.connection.on('error', (err) => {
             console.error('MongoDB connection error:', err);

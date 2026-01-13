@@ -19,7 +19,7 @@ config({ path: `.env.${process.env.NODE_ENV || 'development'}.local` });
 
 export const CREDENTIALS = process.env.CREDENTIALS === 'true';
 export const { NODE_ENV, API_URI, PORT, SECRET_KEY, LOG_FORMAT, LOG_DIR, ORIGIN, LOG_LEVEL } = process.env;
-export const { DB_HOST, DB_PORT, DB_DATABASE } = process.env;
+export const { MONGODB_URI } = process.env;
 
 // JWT
 export const JWT_SECRET: Secret = process.env.JWT_SECRET as Secret;
