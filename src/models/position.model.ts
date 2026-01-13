@@ -36,7 +36,7 @@ const positionSchema = new Schema<IPositionDoc, IPositionModel>(
 
 positionSchema.plugin(toJSON);
 
-positionSchema.index({ name: 1 });
+// positionSchema.index({ name: 1 });
 positionSchema.index({ isActive: 1 });
 
 // Static methods

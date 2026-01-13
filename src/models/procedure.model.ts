@@ -33,7 +33,7 @@ const procedureSchema = new Schema<IProcedureDoc, IProcedureModel>(
 procedureSchema.plugin(toJSON);
 
 // Indexes
-procedureSchema.index({ name: 1 });
+// procedureSchema.index({ name: 1 });
 procedureSchema.index({ isActive: 1 });
 
 // Static methods
