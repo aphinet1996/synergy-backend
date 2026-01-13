@@ -1,0 +1,5 @@
+/logs
+/node_modules
+src/.DS_Store
+uploads/.DS_Store
+.env.development.local
