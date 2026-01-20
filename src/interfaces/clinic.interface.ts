@@ -37,7 +37,7 @@ export interface ITimelineItem {
 export interface IClinic {
     name: IName;
     clinicProfile?: string;
-    clinicLevel: 'premium' | 'standard' | 'basic';
+    clinicLevel: 'easy' | 'soso' | 'hellonearth';
     contractType: 'yearly' | 'monthly' | 'project';
     contractDateStart: Date;
     contractDateEnd: Date;

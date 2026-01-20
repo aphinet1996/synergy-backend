@@ -28,7 +28,7 @@ const serviceSchema = z.object({
 const baseClinicSchema = z.object({
     name: nameSchema,
     clinicProfile: z.string().url('Invalid URL').optional().or(z.literal('')),
-    clinicLevel: z.enum(['premium', 'standard', 'basic']),
+    clinicLevel: z.enum(['easy', 'soso', 'hellonearth']),
     contractType: z.enum(['yearly', 'monthly', 'project']),
     contractDateStart: z.coerce.date(),
     contractDateEnd: z.coerce.date(),

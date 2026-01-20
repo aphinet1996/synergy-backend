@@ -91,9 +91,9 @@ const clinicSchema = new Schema<IClinicDoc, IClinicModel>(
         },
         clinicLevel: {
             type: String,
-            enum: ['premium', 'standard', 'basic'],
+            enum: ['easy', 'soso', 'hellonearth'],
             required: true,
-            default: 'standard',
+            default: 'easy',
         },
         contractType: {
             type: String,
