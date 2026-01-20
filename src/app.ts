@@ -43,6 +43,9 @@ class App {
                 setHeaders: (res, filePath) => {
                     // Prevent directory listing
                     res.setHeader('X-Content-Type-Options', 'nosniff');
+                    // Allow cross-origin access for images/files
+                    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+                    res.setHeader('Access-Control-Allow-Origin', '*');
                 },
             })
         );

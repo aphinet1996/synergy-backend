@@ -1,81 +1,3 @@
-// import { Request, Response, NextFunction } from 'express';
-// import ClinicService from '@services/clinic.service';
-// import { AuthRequest } from '@middlewares/auth.middleware';
-// import { asyncHandler } from '@middlewares/error.middleware';
-
-
-// // Extend AuthRequest
-// interface ClinicRequest extends AuthRequest {
-//     params: { id: string };
-// }
-
-// const clinicService = new ClinicService();
-
-// export class ClinicController {
-//     public getClinics = [
-//         asyncHandler(async (req: ClinicRequest, res: Response) => {
-//             const { clinics, pagination } = await clinicService.listClinics(
-//                 req.query as any,
-//                 req.userId!
-//             );
-//             res.status(200).json({
-//                 status: 'success',
-//                 results: clinics.length,
-//                 pagination,
-//                 data: { clinics },
-//             });
-//         }),
-//     ];
-
-//     public getClinic = [
-//         asyncHandler(async (req: ClinicRequest, res: Response) => {
-//             const clinic = await clinicService.getClinicById(req.params.id);
-//             res.status(200).json({
-//                 status: 'success',
-//                 data: { clinic },
-//             });
-//         }),
-//     ];
-
-//     public createClinic = [
-//         asyncHandler(async (req: ClinicRequest, res: Response) => {
-//             const clinic = await clinicService.createClinic(req.body, req.userId!);
-//             res.status(201).json({
-//                 status: 'success',
-//                 message: 'Clinic created successfully',
-//                 data: { clinic },
-//             });
-//         }),
-//     ];
-
-//     public updateClinic = [
-//         asyncHandler(async (req: ClinicRequest, res: Response) => {
-//             const clinic = await clinicService.updateClinic(
-//                 req.params.id,
-//                 req.body,
-//                 req.userId!
-//             );
-//             res.status(200).json({
-//                 status: 'success',
-//                 message: 'Clinic updated successfully',
-//                 data: { clinic },
-//             });
-//         }),
-//     ];
-
-//     public deleteClinic = [
-//         asyncHandler(async (req: ClinicRequest, res: Response) => {
-//             await clinicService.deleteClinic(req.params.id, req.userId!);
-//             res.status(204).json({
-//                 status: 'success',
-//                 message: 'Clinic deleted successfully',
-//             });
-//         }),
-//     ];
-// }
-
-// export default new ClinicController();
-
 import { Request, Response, NextFunction } from 'express';
 import ClinicService from '@services/clinic.service';
 import { AuthRequest } from '@middlewares/auth.middleware';
@@ -173,7 +95,7 @@ export class ClinicController {
         }),
     ];
 
-    // ==================== TIMELINE HANDLERS ====================
+    // Timeline
 
     /**
      * GET /clinic/:id/timeline

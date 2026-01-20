@@ -2,39 +2,52 @@
 // import { ITaskDoc, ITaskModel } from '@/interfaces/task.interface';
 // import toJSON from '@utils/toJSON';
 
-// const workloadItemSchema = new Schema({
-//     section: { type: String, required: true },
-//     amount: { type: Number, required: true, min: 0 },
-// }, { _id: false });
-
-// const workloadSchema = new Schema({
-//     video: [workloadItemSchema],
-//     website: [workloadItemSchema],
-//     image: [workloadItemSchema],
-//     shooting: [workloadItemSchema],
-// }, { _id: false });
-
-// const commentSchema = new Schema({
-//     text: { type: String, required: true },
-//     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-//     date: { type: Date, default: Date.now },
-// });
-
-// const processSchema = new Schema({
-//     name: { type: String, required: true },
-//     assignee: [{
-//         type: Schema.Types.ObjectId,
-//         ref: 'User',
-//         required: true,
-//     }],
-//     comments: [commentSchema],
-//     attachments: [{ type: String }],
-//     status: {
-//         type: String,
-//         enum: ['pending', 'process', 'review', 'done', 'delete'],
-//         default: 'pending',
+// const workloadItemSchema = new Schema(
+//     {
+//         section: { type: String, required: true },
+//         amount: { type: Number, required: true, min: 0 },
 //     },
-// });
+//     { _id: false }
+// );
+
+// const workloadSchema = new Schema(
+//     {
+//         video: { type: [workloadItemSchema], default: [] },
+//         website: { type: [workloadItemSchema], default: [] },
+//         image: { type: [workloadItemSchema], default: [] },
+//         shooting: { type: [workloadItemSchema], default: [] },
+//     },
+//     { _id: false }
+// );
+
+// const commentSchema = new Schema(
+//     {
+//         text: { type: String, required: true },
+//         user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+//         date: { type: Date, default: Date.now },
+//     },
+//     { _id: true }
+// );
+
+// const processSchema = new Schema(
+//     {
+//         name: { type: String, required: true },
+//         assignee: [
+//             {
+//                 type: Schema.Types.ObjectId,
+//                 ref: 'User',
+//             },
+//         ],
+//         comments: { type: [commentSchema], default: [] },
+//         attachments: { type: [String], default: [] },
+//         status: {
+//             type: String,
+//             enum: ['pending', 'process', 'review', 'done', 'delete'],
+//             default: 'pending',
+//         },
+//     },
+//     { _id: true }
+// );
 
 // const taskSchema = new Schema<ITaskDoc, ITaskModel>(
 //     {
@@ -46,9 +59,10 @@
 //             type: String,
 //             required: [true, 'Description is required'],
 //         },
-//         attachments: [{
-//             type: String,
-//         }],
+//         attachments: {
+//             type: [String],
+//             default: [],
+//         },
 //         priority: {
 //             type: String,
 //             enum: ['low', 'medium', 'high', 'urgent'],
@@ -59,9 +73,10 @@
 //             enum: ['pending', 'process', 'review', 'done', 'delete'],
 //             default: 'pending',
 //         },
-//         tag: [{
-//             type: String,
-//         }],
+//         tag: {
+//             type: [String],
+//             default: [],
+//         },
 //         startDate: {
 //             type: Date,
 //             required: [true, 'Start date is required'],
@@ -75,8 +90,14 @@
 //             ref: 'Clinic',
 //             required: [true, 'Clinic ID is required'],
 //         },
-//         process: [processSchema],
-//         workload: workloadSchema,
+//         process: {
+//             type: [processSchema],
+//             default: [],
+//         },
+//         workload: {
+//             type: workloadSchema,
+//             default: {},
+//         },
 //         createdBy: {
 //             type: Schema.Types.ObjectId,
 //             ref: 'User',
@@ -96,8 +117,8 @@
 // taskSchema.plugin(toJSON);
 
 // taskSchema.index({ clinicId: 1, status: 1 });
-// taskSchema.index({ 'dueDate': 1 });
-// taskSchema.index({ 'assignee': 1 });
+// taskSchema.index({ dueDate: 1 });
+// taskSchema.index({ 'process.assignee': 1 });
 
 // // Static methods
 // taskSchema.statics.findByClinic = function (clinicId: string): Promise<ITaskDoc[]> {
@@ -125,6 +146,17 @@
 import mongoose, { Schema } from 'mongoose';
 import { ITaskDoc, ITaskModel } from '@/interfaces/task.interface';
 import toJSON from '@utils/toJSON';
+
+const attachmentSchema = new Schema(
+    {
+        url: { type: String, required: true },
+        filename: { type: String, required: true },
+        originalName: { type: String, required: true },
+        size: { type: Number, required: true },
+        mimetype: { type: String, required: true },
+    },
+    { _id: false }
+);
 
 const workloadItemSchema = new Schema(
     {
@@ -163,7 +195,7 @@ const processSchema = new Schema(
             },
         ],
         comments: { type: [commentSchema], default: [] },
-        attachments: { type: [String], default: [] },
+        attachments: { type: [attachmentSchema], default: [] },
         status: {
             type: String,
             enum: ['pending', 'process', 'review', 'done', 'delete'],
@@ -184,7 +216,7 @@ const taskSchema = new Schema<ITaskDoc, ITaskModel>(
             required: [true, 'Description is required'],
         },
         attachments: {
-            type: [String],
+            type: [attachmentSchema],
             default: [],
         },
         priority: {

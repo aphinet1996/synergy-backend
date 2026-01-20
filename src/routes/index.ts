@@ -16,7 +16,7 @@ router.use('/user', userRoutes);
 router.use('/clinic', clinicRoutes);
 router.use('/task', taskRoutes);
 router.use('/todo', todoRoutes);
-router.use('/upload', uploadRoutes);
+router.use('/uploads', uploadRoutes);
 router.use('/procedure', procedureRoutes);
 
 router.use('/position', positionRotes);

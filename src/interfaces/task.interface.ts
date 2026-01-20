@@ -80,6 +80,14 @@
 //     nickname: string;
 // }
 
+// // DTO for process in task list response
+// export interface TaskProcessDTO {
+//     id: string;
+//     name: string;
+//     status: taskStatus;
+//     assignee: TaskAssigneeDTO[];
+// }
+
 // // DTO for task list response
 // export interface TaskListResponseDTO {
 //     id: string;
@@ -90,7 +98,7 @@
 //     dueDate: string;
 //     tag: string[];
 //     clinic: TaskClinicDTO;
-//     assignee: TaskAssigneeDTO[];
+//     process: TaskProcessDTO[];
 //     commentAmount: number;
 //     attachmentsAmount: number;
 //     createdAt: string;
@@ -101,6 +109,14 @@ import { Types, Document, Model, Query } from 'mongoose';
 
 export type taskPriority = 'low' | 'medium' | 'high' | 'urgent';
 export type taskStatus = 'pending' | 'process' | 'review' | 'done' | 'delete';
+
+export interface IAttachment {
+    url: string;
+    filename: string;
+    originalName: string;
+    size: number;
+    mimetype: string;
+}
 
 export interface IWorkloadItem {
     section: string;
@@ -124,14 +140,14 @@ export interface IProcess {
     name: string;
     assignee: Types.ObjectId[];
     comments?: IComment[];
-    attachments: string[];
+    attachments: IAttachment[];
     status: taskStatus;
 }
 
 export interface ITask {
     name: string;
     description: string;
-    attachments: string[];
+    attachments: IAttachment[];
     priority: taskPriority;
     status: taskStatus;
     tag?: string[];
@@ -177,6 +193,15 @@ export interface TaskAssigneeDTO {
     firstname: string;
     lastname: string;
     nickname: string;
+}
+
+// DTO for attachment in task response
+export interface TaskAttachmentDTO {
+    url: string;
+    filename: string;
+    originalName: string;
+    size: number;
+    mimetype: string;
 }
 
 // DTO for process in task list response
