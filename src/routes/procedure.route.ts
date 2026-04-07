@@ -9,7 +9,7 @@ const router = Router();
 // All routes require authentication
 router.use(authenticate);
 
-// ==================== PUBLIC ROUTES (All authenticated users) ====================
+// PUBLIC ROUTES (All authenticated users)
 
 // GET /procedure/active - Get active procedures for dropdown/form
 router.get(
@@ -17,7 +17,7 @@ router.get(
     procedureController.getActiveProcedures
 );
 
-// ==================== ADMIN ROUTES ====================
+// ADMIN ROUTES
 
 // GET /procedure - List all procedures (admin only)
 router.get(

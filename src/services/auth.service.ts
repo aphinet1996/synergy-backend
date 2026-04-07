@@ -183,7 +183,7 @@ export class AuthService {
 
     // Request password reset (use DTO)
     async requestPasswordReset(username: string): Promise<string | null> {
-        const user = await User.findOne({username}).lean();
+        const user = await User.findOne({ username }).lean();
 
         if (!user) {
             return null;

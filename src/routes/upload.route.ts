@@ -18,9 +18,7 @@ const router = Router();
 // All upload routes require authentication
 router.use(authenticate);
 
-// ============================================
 // Flexible Upload (Images & Documents)
-// ============================================
 
 /**
  * @route   POST /api/v1/uploads/file
@@ -54,9 +52,7 @@ router.post(
     uploadController.uploadFiles
 );
 
-// ============================================
 // Image-Specific Endpoints
-// ============================================
 
 /**
  * @route   POST /api/v1/uploads/image
@@ -88,9 +84,7 @@ router.post(
     uploadController.uploadImages
 );
 
-// ============================================
 // Document-Specific Endpoints
-// ============================================
 
 /**
  * @route   POST /api/v1/uploads/document
@@ -122,9 +116,7 @@ router.post(
     uploadController.uploadDocuments
 );
 
-// ============================================
 // Delete & Check Endpoints
-// ============================================
 
 /**
  * @route   DELETE /api/v1/uploads/:filename

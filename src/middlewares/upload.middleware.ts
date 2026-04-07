@@ -119,10 +119,7 @@ const getMaxFileSize = (type: FileCategory): number => {
     }
 };
 
-// ============================================
 // Multer Upload Instances
-// ============================================
-
 // Single file upload (flexible - images or documents)
 export const uploadSingleFile = multer({
     storage,

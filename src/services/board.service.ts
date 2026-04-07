@@ -42,7 +42,7 @@ const mergeElements = (existingElements: any[], newElements: any[]): any[] => {
 
 export class BoardService {
 
-    // ==================== getBoardsByClinic ====================
+    // getBoardsByClinic
     async getBoardsByClinic(clinicId: string, userId: string) {
         this.validateObjectId(clinicId);
 
@@ -98,7 +98,7 @@ export class BoardService {
         return Object.values(grouped);
     }
 
-    // ==================== getBoardsByProcedure ====================
+    // getBoardsByProcedure
     async getBoardsByProcedure(clinicId: string, procedureId: string, userId: string) {
         this.validateObjectId(clinicId);
         this.validateObjectId(procedureId);

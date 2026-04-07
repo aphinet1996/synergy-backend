@@ -206,9 +206,7 @@ export class UploadService {
         return { deleted, kept };
     }
 
-    // ============================================
     // Private Helpers
-    // ============================================
 
     /**
      * Generate file URL

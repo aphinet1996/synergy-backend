@@ -2,6 +2,7 @@ import { Server as HttpServer } from 'http';
 import { Server } from 'socket.io';
 import { ORIGIN, CREDENTIALS } from '@config/index';
 import { initBoardSocket } from '@sockets/board.socket';
+import { setupLeaveSocket } from '@sockets/leave.socket';
 
 let io: Server;
 
@@ -17,6 +18,7 @@ export const initSocket = (httpServer: HttpServer) => {
 
     // Initialize board socket
     initBoardSocket(io);
+    setupLeaveSocket(io);
 
     return io;
 };

@@ -28,7 +28,7 @@ export class AppError extends Error {
 }
 
 const handleCastErrorDB = (err: mongoose.Error.CastError) => {
-  const message = `ข้อมูลไม่ถูกต้อง1: ${err.path} (${err.value})`;
+  const message = `ข้อมูลไม่ถูกต้อง: ${err.path} (${err.value})`;
   return new AppError(message, 400);
 };
 

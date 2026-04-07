@@ -18,7 +18,7 @@ const baseUserSchema = z.object({
     .optional(),
   address: z.string().max(200, 'Address cannot exceed 200 characters').optional(),
   birthDate: z.coerce.date().optional(),
-  position: z.string().max(100, 'Position cannot exceed 100 characters').optional(),
+  positionId: z.string().optional(),  // Changed: ObjectId string
   salary: z.string().optional(),
   contract: z.string().optional(),
   contractDateStart: z.coerce.date().optional(),
@@ -30,7 +30,7 @@ const baseUserSchema = z.object({
 });
 
 // Create user (full required fields + password)
-export const createUserSchema = baseUserSchema
+export const createUserSchema = baseUserSchema;
 
 // Update user (partial, exclude username/password/role if not admin)
 export const updateUserSchema = baseUserSchema.partial()
@@ -56,6 +56,7 @@ export const updateUserSchema = baseUserSchema.partial()
 export const listUserQuerySchema = z.object({
   search: z.string().optional(),
   role: z.enum(['admin', 'manager', 'employee']).optional(),
+  positionId: z.string().optional(),
   isActive: z.coerce.boolean().optional(),
   page: z.coerce.number().min(1).default(1),
   limit: z.coerce.number().min(1).max(50).default(10),

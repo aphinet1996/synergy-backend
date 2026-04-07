@@ -6,6 +6,7 @@ import taskRoutes from '@routes/task.route'
 import todoRoutes from '@routes/todo.route'
 import uploadRoutes from '@routes/upload.route'
 import procedureRoutes from '@routes/procedure.route'
+import leaveRoutes from '../leave/routes/leave.route'
 
 import positionRotes from '@routes/position.route'
 
@@ -18,6 +19,7 @@ router.use('/task', taskRoutes);
 router.use('/todo', todoRoutes);
 router.use('/uploads', uploadRoutes);
 router.use('/procedure', procedureRoutes);
+router.use('/leave', leaveRoutes);
 
 router.use('/position', positionRotes);
 

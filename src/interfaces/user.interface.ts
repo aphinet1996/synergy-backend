@@ -1,4 +1,4 @@
-import { Types, Document, Model, Query } from 'mongoose';
+import { Types, Document, Model } from 'mongoose';
 
 export type UserType = 'permanent' | 'probation' | 'freelance';
 export type UserRole = 'admin' | 'manager' | 'employee';
@@ -14,7 +14,7 @@ export interface IUser {
     tel?: string;
     address?: string;
     birthDate?: Date;
-    position?: string;
+    positionId?: Types.ObjectId;
     salary?: string;
     contract?: string;
     contractDateStart?: Date;
@@ -22,7 +22,7 @@ export interface IUser {
     employeeType: UserType;
     employeeDateStart: Date;
     employeeStatus?: string;
-    role: UserRole,
+    role: UserRole;
     isActive?: boolean;
     lastLogin?: Date;
     refreshToken?: string;
@@ -43,9 +43,43 @@ export interface IUserModel extends Model<IUserDoc> {
     isUserExist(firstname: string, lastname: string): Promise<boolean>;
 }
 
-export type CreateUserBody = Omit<IUser, 
-'isActive' | 'lastLogin' | 'refreshToken' | 'resetPasswordToken' | 'resetPasswordExpires' |
-'createdAt' | 'updatedAt' | 'updatedBy'
+export type CreateUserBody = Omit<IUser,
+    'isActive' | 'lastLogin' | 'refreshToken' | 'resetPasswordToken' | 'resetPasswordExpires' |
+    'createdAt' | 'updatedAt' | 'updatedBy'
 >;
 
 export type UpdateUserBody = Partial<IUser>;
+
+export interface UserPositionDTO {
+    id: string;
+    name: string;
+}
+
+export interface UserListResponseDTO {
+    id: string;
+    username: string;
+    profile?: string;
+    firstname: string;
+    lastname: string;
+    nickname: string;
+    position?: UserPositionDTO;
+    role: UserRole;
+    isActive: boolean;
+}
+
+export interface UserDetailResponseDTO extends UserListResponseDTO {
+    lineUserId?: string;
+    tel?: string;
+    address?: string;
+    birthDate?: string;
+    salary?: string;
+    contract?: string;
+    contractDateStart?: string;
+    contractDateEnd?: string;
+    employeeType: UserType;
+    employeeDateStart: string;
+    employeeStatus?: string;
+    lastLogin?: string;
+    createdAt: string;
+    updatedAt?: string;
+}

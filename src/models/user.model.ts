@@ -16,113 +16,115 @@ const userSchema = new Schema<IUserDoc, IUserModel>(
             type: String,
             required: [true, 'Password is required'],
             minlength: [6, 'Password must be at least 6 characters'],
-            select: false
+            select: false,
         },
         profile: {
             type: String,
-            default: null
+            default: null,
         },
         firstname: {
             type: String,
             required: [true, 'First name is required'],
-            trim: true
+            trim: true,
         },
         lastname: {
             type: String,
             required: [true, 'Last name is required'],
-            trim: true
+            trim: true,
         },
         nickname: {
             type: String,
             required: [true, 'Nick name is required'],
-            trim: true
+            trim: true,
         },
         lineUserId: {
             type: String,
             default: null,
-            trim: true
+            trim: true,
         },
         tel: {
             type: String,
             default: null,
             trim: true,
-            match: [/^\d{10}$/, 'Tel must be 10 digits']
+            match: [/^\d{10}$/, 'Tel must be 10 digits'],
         },
         address: {
             type: String,
-            default: null
+            default: null,
         },
         birthDate: {
-            type: Date
+            type: Date,
         },
-        position: {
-            type: String,
-            default: null
+        // Changed: positionId as ObjectId reference
+        positionId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Position',
+            default: null,
         },
         salary: {
             type: String,
             default: null,
-            select: false
+            select: false,
         },
         contract: {
             type: String,
-            default: null
+            default: null,
         },
         contractDateStart: {
-            type: Date
+            type: Date,
         },
         contractDateEnd: {
-            type: Date
+            type: Date,
         },
         employeeType: {
             type: String,
             enum: ['permanent', 'probation', 'freelance'],
-            default: 'permanent'
+            default: 'permanent',
         },
         employeeDateStart: {
             type: Date,
             required: [true, 'Employee start date is required'],
-            default: Date.now
+            default: Date.now,
         },
         employeeStatus: {
             type: String,
-            default: null
+            default: null,
         },
         role: {
             type: String,
             enum: ['admin', 'manager', 'employee'],
-            default: 'employee'
+            default: 'employee',
         },
         isActive: {
             type: Boolean,
-            default: true
+            default: true,
         },
         lastLogin: {
             type: Date,
-            default: null
+            default: null,
         },
         refreshToken: {
             type: String,
             default: null,
-            select: false
+            select: false,
         },
         resetPasswordToken: {
             type: String,
-            select: false
+            select: false,
         },
         resetPasswordExpires: {
-            type: Date
+            type: Date,
         },
         createdBy: {
             type: Schema.Types.ObjectId,
             ref: 'User',
-            required: [true, 'Created by is required']
+            required: [true, 'Created by is required'],
         },
         updatedBy: {
             type: Schema.Types.ObjectId,
             ref: 'User',
-            default: null
-        }
+            default: null,
+        },
     },
     {
         timestamps: true,
@@ -132,6 +134,7 @@ const userSchema = new Schema<IUserDoc, IUserModel>(
 userSchema.plugin(toJSON);
 
 userSchema.index({ role: 1, isActive: 1 });
+userSchema.index({ positionId: 1 });
 
 // Hash password before saving
 userSchema.pre('save', async function (next) {
@@ -159,7 +162,7 @@ userSchema.methods.comparePassword = async function (password: string): Promise<
 userSchema.statics.findByResetToken = function (token: string): Promise<IUserDoc | null> {
     return this.findOne({
         resetPasswordToken: token,
-        resetPasswordExpires: { $gt: Date.now() }
+        resetPasswordExpires: { $gt: Date.now() },
     }).select('-password');
 };
 

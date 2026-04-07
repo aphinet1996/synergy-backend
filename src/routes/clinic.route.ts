@@ -12,7 +12,7 @@ const router = Router();
 
 router.use(authenticate);
 
-// ==================== CLINIC ROUTES ====================
+// CLINIC ROUTES
 
 router.get(
     '/',
@@ -51,7 +51,7 @@ router.delete(
     clinicController.deleteClinic
 );
 
-// ==================== TIMELINE ROUTES ====================
+// TIMELINE ROUTES
 
 // GET /clinic/:id/timeline - Get timeline
 router.get(
@@ -91,7 +91,7 @@ router.delete(
     clinicController.deleteTimelineItem
 );
 
-// ==================== DOCUMENT ROUTES ====================
+// DOCUMENT ROUTES
 
 // GET /clinic/:id/documents - List all documents
 router.get(
@@ -131,7 +131,7 @@ router.delete(
     documentController.deleteDocument
 );
 
-// ==================== BOARD ROUTES ====================
+// BOARD ROUTES
 
 // GET /clinic/:id/boards - Get all boards grouped by procedure (metadata)
 router.get(

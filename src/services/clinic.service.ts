@@ -442,7 +442,7 @@ export class ClinicService {
         return newTimeline;
     }
 
-    // ==================== TIMELINE METHODS ====================
+    // TIMELINE METHODS
 
     /**
      * Get timeline for a clinic

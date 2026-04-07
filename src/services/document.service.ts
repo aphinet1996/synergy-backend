@@ -206,7 +206,7 @@ export class DocumentService {
         return true;
     }
 
-    // ==================== PRIVATE HELPERS ====================
+    // PRIVATE HELPERS
 
     /**
      * Validate MongoDB ObjectId
