@@ -27,12 +27,7 @@ class App {
 
     private configureMiddlewares(): void {
         this.app.use(morgan(LOG_FORMAT, { stream }));
-        // this.app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
-        this.app.use(helmet());
-        this.app.use(compression());
-        this.app.use(express.json());
-        this.app.use(express.urlencoded({ extended: true }));
-
+        
         const allowedOrigins = ORIGIN.split(',').map(o => o.trim());
 
         this.app.use(cors({
@@ -45,6 +40,14 @@ class App {
             },
             credentials: CREDENTIALS,
         }));
+
+        this.app.use(helmet({
+            crossOriginResourcePolicy: { policy: 'cross-origin' },
+        }));
+
+        this.app.use(compression());
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({ extended: true }));
 
         this.app.use(
             UPLOADS_PATH,  // '/uploads'
