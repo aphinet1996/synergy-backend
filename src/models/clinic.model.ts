@@ -141,6 +141,10 @@ const clinicSchema = new Schema<IClinicDoc, IClinicModel>(
             type: Number,
             default: 0,
         },
+        leadClinicId: {
+            type: Number,
+            default: null,
+        },
         createdBy: {
             type: Schema.Types.ObjectId,
             ref: 'User',
@@ -161,6 +165,7 @@ clinicSchema.plugin(toJSON);
 
 clinicSchema.index({ status: 1, assignedTo: 1 });
 clinicSchema.index({ contractDateEnd: 1 });
+clinicSchema.index({ leadClinicId: 1 });
 
 // Static methods
 clinicSchema.statics.findByUser = function (userId: string): Promise<IClinicDoc[]> {

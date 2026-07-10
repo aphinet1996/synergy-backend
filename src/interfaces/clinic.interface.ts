@@ -48,20 +48,21 @@ export interface IClinic {
     procedures: Types.ObjectId[];
     timeline: ITimelineItem[];
     totalWeeks?: number;
+    leadClinicId?: number;
     createdAt?: Date;
     updatedAt?: Date;
     createdBy: Types.ObjectId;
     updatedBy?: Types.ObjectId;
 }
 
-export interface IClinicDoc extends IClinic, Document {}
+export interface IClinicDoc extends IClinic, Document { }
 
 export interface IClinicModel extends Model<IClinicDoc> {
     findByUser(userId: string): Query<IClinicDoc[], IClinicDoc>;
     isClinicExist(name: IName): Promise<boolean>;
 }
 
-export type CreateClinicBody = Omit<IClinic, 
+export type CreateClinicBody = Omit<IClinic,
     'createdAt' | 'updatedAt' | 'updatedBy'
 >;
 

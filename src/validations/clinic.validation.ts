@@ -37,6 +37,7 @@ const baseClinicSchema = z.object({
     note: z.string().max(500).optional(),
     service: serviceSchema,
     procedures: z.array(z.string().min(1)).optional().default([]),
+    leadClinicId: z.number().int().positive().optional(),
 });
 
 // Create clinic (full required)
@@ -65,8 +66,8 @@ const timelineItemSchema = z.object({
     serviceType: z.enum(['setup', 'coperateIdentity', 'website', 'socialMedia', 'training']),
     serviceName: z.string().min(1, 'Service name is required'),
     serviceAmount: z.string().default('---'),
-    weekStart: z.number().min(0, 'Week start must be at least 0'),  // 0 = ยังไม่กำหนด
-    weekEnd: z.number().min(0, 'Week end must be at least 0'),      // 0 = ยังไม่กำหนด
+    weekStart: z.number().min(0, 'Week start must be at least 0'),
+    weekEnd: z.number().min(0, 'Week end must be at least 0'),
 }).refine(data => data.weekEnd >= data.weekStart, {
     message: 'Week end must be greater than or equal to week start',
     path: ['weekEnd'],
@@ -82,8 +83,8 @@ export const timelineItemInputSchema = timelineItemSchema;
 
 // Update single timeline item (with id)
 export const updateTimelineItemSchema = z.object({
-    weekStart: z.number().min(0).optional(),  // 0 = ยังไม่กำหนด
-    weekEnd: z.number().min(0).optional(),    // 0 = ยังไม่กำหนด
+    weekStart: z.number().min(0).optional(),
+    weekEnd: z.number().min(0).optional(),
     serviceName: z.string().min(1).optional(),
     serviceAmount: z.string().optional(),
 });
@@ -108,7 +109,7 @@ export default {
     update: updateClinicSchema,
     list: listClinicQuerySchema,
     param: clinicParamSchema,
-    // Timeline
+    
     updateTimeline: updateTimelineSchema,
     timelineItem: timelineItemInputSchema,
     updateTimelineItem: updateTimelineItemSchema,
